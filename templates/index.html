@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Steganography: Hide and Reveal Messages in Images</h1>
+    <div class="container">
+        <form action="/encode" method="POST" enctype="multipart/form-data">
+            <h2>Encode a Message</h2>
+            <input type="file" name="image" required><br>
+            <textarea name="message" placeholder="Enter your message" required></textarea><br>
+            <button type="submit">Encode</button>
+        </form>
+    </div>
+    <div class="container">
+        <form action="/decode" method="POST" enctype="multipart/form-data">
+            <h2>Decode a Message</h2>
+            <input type="file" name="image" required><br>
+            <button type="submit">Decode</button>
+        </form>
+    </div>
+</body>
+</html>
