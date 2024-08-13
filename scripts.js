@@ -84,7 +84,7 @@ function extractBinaryMessage(data) {
         binaryMessage += (data.data[i] & 1).toString();
     }
 
-    // Remove the delimiter part
+    // Find and remove the delimiter part
     const delimiter = '1111111111111110';
     const delimiterIndex = binaryMessage.indexOf(delimiter);
     if (delimiterIndex !== -1) {
