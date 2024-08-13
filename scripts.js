@@ -35,10 +35,71 @@ function encodeMessage() {
             ctx.putImageData(data, 0, 0);
             const encodedImage = canvas.toDataURL('image/png');
             document.getElementById('encodedImage').src = encodedImage;
+
+            // Set up the download link
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = encodedImage;
+            downloadLink.style.display = 'inline'; // Make the link visible
         };
         image.src = event.target.result;
     };
     reader.readAsDataURL(file);
+}
+
+function decodeMessage() {
+    const fileInput = document.getElementById('imageUploadDecode');
+
+    if (fileInput.files.length === 0) {
+        alert('Please upload an image.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const image = new Image();
+        image.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const binaryMessage = extractBinaryMessage(data);
+
+            // Convert binary message to string
+            const message = binaryToString(binaryMessage);
+            document.getElementById('decodedMessage').innerText = `Decoded Message: ${message}`;
+        };
+        image.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function extractBinaryMessage(data) {
+    let binaryMessage = '';
+    for (let i = 0; i < data.data.length; i += 4) {
+        binaryMessage += (data.data[i] & 1).toString();
+    }
+
+    // Remove the delimiter part
+    const delimiter = '1111111111111110';
+    const delimiterIndex = binaryMessage.indexOf(delimiter);
+    if (delimiterIndex !== -1) {
+        binaryMessage = binaryMessage.slice(0, delimiterIndex);
+    }
+    return binaryMessage;
+}
+
+function binaryToString(binary) {
+    let str = '';
+    for (let i = 0; i < binary.length; i += 8) {
+        const byte = binary.slice(i, i + 8);
+        str += String.fromCharCode(parseInt(byte, 2));
+    }
+    return str;
 }
 
 function stringToBinary(str) {
