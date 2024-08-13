@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography</title>
+    <title>Steganography Encoder/Decoder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Steganography Encoder/Decoder</h1>
     
     <div>
-        <h2>Upload Image and Enter Message</h2>
+        <h2>Encode Message into Image</h2>
         <input type="file" id="imageUpload" accept="image/*">
         <textarea id="message" placeholder="Enter your message here..."></textarea>
         <button onclick="encodeMessage()">Encode Message</button>
     </div>
 
+    <div>
+        <h2>Decode Message from Image</h2>
+        <input type="file" id="imageUploadDecode" accept="image/*">
+        <button onclick="decodeMessage()">Decode Message</button>
+        <p id="decodedMessage"></p>
+    </div>
+
     <div id="result">
         <h2>Encoded Image</h2>
         <img id="encodedImage" alt="Encoded Image">
+        <br>
+        <a id="downloadLink" download="encoded_image.png" style="display:none;">Download Image</a>
     </div>
 
     <script src="scripts.js"></script>
