@@ -3,34 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography Encoder/Decoder</title>
+    <title>Message Encoder/Decoder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Steganography Encoder/Decoder</h1>
-    
-    <div>
-        <h2>Encode Message into Image</h2>
-        <input type="file" id="imageUpload" accept="image/*">
-        <textarea id="message" placeholder="Enter your message here..."></textarea>
-        <button onclick="encodeMessage()">Encode Message</button>
-    </div>
+    <div class="container">
+        <h1>Message Encoder/Decoder</h1>
 
-    <div>
-        <h2>Decode Message from Image</h2>
-        <input type="file" id="imageUploadDecode" accept="image/*">
-        <button onclick="decodeMessage()">Decode Message</button>
-        <p id="decodedMessage"></p>
-    </div>
+        <!-- Encoder Section -->
+        <div class="section">
+            <h2>Encode Message into Image</h2>
+            <input type="file" id="encode-image" accept="image/*">
+            <textarea id="message" placeholder="Enter your message here"></textarea>
+            <button id="encode-button">Encode and Download Image</button>
+        </div>
 
-    <div id="result">
-        <h2>Encoded Image</h2>
-        <img id="encodedImage" alt="Encoded Image" style="display: none;">
-        <br>
-        <a id="downloadLink" download="encoded_image.png" style="display:none;">Download Image</a>
-        <button id="downloadButton" style="display:none;" onclick="downloadImage()">Download Image</button>
+        <!-- Decoder Section -->
+        <div class="section">
+            <h2>Decode Message from Image</h2>
+            <input type="file" id="decode-image" accept="image/*">
+            <button id="decode-button">Decode Message</button>
+            <p id="decoded-message"></p>
+        </div>
     </div>
-
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
