@@ -34,12 +34,20 @@ function encodeMessage() {
 
             ctx.putImageData(data, 0, 0);
             const encodedImage = canvas.toDataURL('image/png');
-            document.getElementById('encodedImage').src = encodedImage;
+
+            // Update the displayed image
+            const encodedImageElement = document.getElementById('encodedImage');
+            encodedImageElement.src = encodedImage;
+            encodedImageElement.style.display = 'inline'; // Make the image visible
 
             // Set up the download link
             const downloadLink = document.getElementById('downloadLink');
             downloadLink.href = encodedImage;
             downloadLink.style.display = 'inline'; // Make the link visible
+
+            // Show the download button
+            const downloadButton = document.getElementById('downloadButton');
+            downloadButton.style.display = 'inline';
         };
         image.src = event.target.result;
     };
@@ -97,11 +105,18 @@ function binaryToString(binary) {
     let str = '';
     for (let i = 0; i < binary.length; i += 8) {
         const byte = binary.slice(i, i + 8);
-        str += String.fromCharCode(parseInt(byte, 2));
+        if (byte.length === 8) {
+            str += String.fromCharCode(parseInt(byte, 2));
+        }
     }
     return str;
 }
 
 function stringToBinary(str) {
     return str.split('').map(char => char.charCodeAt(0).toString(2).padStart(8, '0')).join('');
+}
+
+function downloadImage() {
+    const downloadLink = document.getElementById('downloadLink');
+    downloadLink.click(); // Trigger the download
 }
